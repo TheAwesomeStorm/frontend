@@ -1,0 +1,14 @@
+<!-- app.component.html -->
+<div class='content'>
+  <router-outlet/>
+</div>
+<!-- Loading Overlay using Bootstrap -->
+<div *ngIf="isLoading" class="loading-overlay">
+  <div
+    class="d-flex justify-content-center align-items-center position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50">
+    <!-- Bootstrap Spinner -->
+    <div class="spinner-border text-light" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</div>

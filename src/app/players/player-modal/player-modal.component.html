@@ -1,0 +1,112 @@
+<!-- Content -->
+<div class="modal fade" [ngClass]="{ show: show }" [style.display]='show ? "block":"none"' *ngIf="show" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ title }}</h5>
+        <button type="button" class="btn-close" (click)="onClose()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #playerForm="ngForm">
+          <!-- Name -->
+          <div class="mb-3">
+            <label for="playerName" class="form-label">Name</label>
+            <input
+              type="text"
+              id="playerName"
+              class="form-control"
+              [(ngModel)]="player.name"
+              name="name"
+              placeholder="Enter player name"
+              required
+            />
+          </div>
+          <!-- Race -->
+          <div class="mb-3">
+            <label for="playerRace" class="form-label">Race</label>
+            <select
+              id="playerRace"
+              class="form-select"
+              [(ngModel)]="player.race.id"
+              name="race"
+              required
+            >
+              <option value="" disabled selected>Select a race</option>
+              <option *ngFor="let race of races" [ngValue]="race.id">
+                {{ race.name }}
+              </option>
+            </select>
+          </div>
+          <!-- Class -->
+          <div class="mb-3">
+            <label for="playerClass" class="form-label">Class</label>
+            <select
+              id="playerClass"
+              class="form-select"
+              [(ngModel)]="player.class.id"
+              name="class"
+              required
+            >
+              <option value="" disabled selected>Select a class</option>
+              <option *ngFor="let classObj of classes" [ngValue]="classObj.id">
+                {{ classObj.name }}
+              </option>
+            </select>
+          </div>
+          <!-- Faction -->
+          <div class="mb-3">
+            <label for="playerFaction" class="form-label">Faction</label>
+            <select
+              id="playerFaction"
+              class="form-select"
+              [(ngModel)]="player.faction.id"
+              name="faction"
+              required
+            >
+              <option value="" disabled selected>Select a faction</option>
+              <option *ngFor="let faction of factions" [ngValue]="faction.id">
+                {{ faction.name }}
+              </option>
+            </select>
+          </div>
+          <!-- Level -->
+          <div class="mb-3">
+            <label for="playerLevel" class="form-label">Level</label>
+            <input
+              type="number"
+              id="playerLevel"
+              class="form-control"
+              [(ngModel)]="player.level"
+              name="level"
+              placeholder="Enter level"
+              min="1"
+              max="100"
+              required
+            />
+          </div>
+          <!-- Is Enabled -->
+          <div class="form-check mb-3">
+            <input
+              type="checkbox"
+              id="playerEnabled"
+              class="form-check-input"
+              [(ngModel)]="player.isEnabled"
+              name="isEnabled"
+            />
+            <label for="playerEnabled" class="form-check-label">Enabled</label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="onSave()">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Backdrop -->
+<div
+  class="modal-backdrop fade"
+  [ngClass]="{ show: show }"
+  *ngIf="show"
+></div>

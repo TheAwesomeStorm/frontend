@@ -1,0 +1,55 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Player List</h2>
+  <!-- Pagination -->
+  <app-pagination [totalPages]='totalPages' [currentPage]='currentPage' (pageChanged)='onPageChanged($event)'/>
+  <!-- Create Player Button -->
+  <div class="d-flex justify-content-end mb-3">
+    <button
+      class="btn btn-success btn-sm"
+      (click)="showCreateModal()"
+    >
+      Create Player
+    </button>
+  </div>
+  <!-- Table -->
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped text-center">
+      <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Race</th>
+        <th>Class</th>
+        <th>Faction</th>
+        <th>Level</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let player of players">
+        <td>{{ player.name }}</td>
+        <td>{{ player.race.name }}</td>
+        <td>{{ player.class.name }}</td>
+        <td>{{ player.faction.name }}</td>
+        <td>{{ player.level }}</td>
+        <td>
+          <button class="btn btn-outline-primary btn-sm me-2" (click)="showUpdateModal(player)">
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button class="btn btn-outline-danger btn-sm" (click)="deletePlayer(player.id)">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="players.length === 0">
+        <td colspan="5">No players found.</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <!--  Modal-->
+  <app-player-modal [title]='modalTitle'
+                    [show]='showModal'
+                    [player]='selectedPlayer'
+                    (cancel)='closeModal()'
+                    (save)='editPlayer()'/>
+</div>

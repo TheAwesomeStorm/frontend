@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ../../backend  # Go up two levels to the root of the project and access the backend directory
+      dockerfile: docker/Dockerfile  # Path to the backend Dockerfile
+    ports:
+      - "8000:8000"  # Expose the port for the NestJS API
+    networks:
+      - app-network
+    environment:
+      - DATABASE_URL=postgres://mendes:password@database:5432/db  # Database connection string
+    depends_on:
+      - database
+
+  database:
+    build:
+      context: ../../database  # Go up two levels to the root of the project and access the database directory
+      dockerfile: docker/Dockerfile  # Path to the database Dockerfile
+    container_name: database
+    ports:
+      - "5432:5432"  # Expose the PostgreSQL port
+    networks:
+      - app-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=mendes
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=db
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge
